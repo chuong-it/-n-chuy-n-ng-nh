@@ -1,18 +1,18 @@
 import "./Interest.css";
 
 
-function Interest() {
+function Interest({prop}) {
+  const interest1 = prop[0].interest1
+  console.log(interest1)
   return (
-    
 
-      <div class="interest">
-        <h2> Sở Thích </h2>
-        <h3><i class="fa fa-futbol" aria-hidden="true"></i> Chơi Thể Thao</h3>
-        <h3><i class="fa fa-music" aria-hidden="true"></i> Nghe Nhạc </h3>
-        <h3><i class="fa fa-motorcycle" aria-hidden="true"></i> Du Lịch </h3>
+    <div className="interest">
+      <h2> Sở Thích </h2>
+      {interest1.map((post) => 
+        <h3 key={post.id}><i className={`${post.icon}`} aria-hidden="true"></i> {post.name} </h3>)}
 
-      </div>
-    
+    </div>
+
   );
 }
 

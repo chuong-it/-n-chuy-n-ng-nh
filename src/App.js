@@ -1,24 +1,26 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import About from './components/about/About';
 import Interest from './components/interest/interest';
 import Skill from './components/skill/skill';
 function App() {
- const  state = {
-    name :"Nguyễn Bá Chương",
-    date : '22/04/1999',
-    skill: '80',
-    home: '15 phan Huy Chú - Vinh -Nghệ An',
-    address: 'Hà Tĩnh',
-    phone: '0373379243',
-    email: 'nguyenchuong2204@gmail.com'
-  }
+ const [posts, setPosts] = useState([])
+ useEffect(() => {
+  fetch('https://my.api.mockaroo.com/mydata.json?key=065d2220')
+  .then(res => res.json())
+  .then(post => {
+    setPosts(post);
+  })
+},[])
+
   
 
 
   return (
+    
     <div className="container">
-
       <div className="navbar">
         <Link to ="/"><i className="fa fa-home" aria-hidden="true"></i></Link>
         <Link to ="/Skill">KỸ NĂNG</Link>
@@ -29,19 +31,22 @@ function App() {
         <div className="App-main">
           <img src={require('./components/image/ab.jpg')} />
 
-  
-          <h2>{state.name}</h2>
-          <h3><i className="fa fa-birthday-cake" aria-hidden="true"></i> {state.date} </h3>
-          <h3><i className="fa fa-home" aria-hidden="true"></i> {state.home} </h3>
-          <h3><i className="fa fa-map-marker" aria-hidden="true"></i> {state.address} </h3>
-          <h3><i className="fa fa-phone" aria-hidden="true"></i> {state.phone} </h3>
-          <h3><i className="fa fa-envelope" aria-hidden="true"></i> {state.email}</h3>
+          {posts.map(post => (
+           <div key={post.id}>
+            <h2>{post.name}</h2>
+            <h3><i className="fa fa-birthday-cake" aria-hidden="true"></i> {post.date} </h3>
+            <h3><i className="fa fa-home" aria-hidden="true"></i> {post.home} </h3>
+            <h3><i className="fa fa-map-marker" aria-hidden="true"></i> {post.address} </h3>
+            <h3><i className="fa fa-phone" aria-hidden="true"></i> {post.phone} </h3>
+            <h3><i className="fa fa-envelope" aria-hidden="true"></i> {post.email}</h3>
+            </div>
+          ))}
         </div>
       
           <Routes>
-            <Route path='/' element={<About />} />
-            <Route path='/Skill' element={<Skill/>} />
-            <Route path='/Interest' element={<Interest />} />
+            <Route path='/' element={<About prop={posts} />} />
+            <Route path='/Skill' element={<Skill prop={posts}/>} />
+            <Route path='/Interest' element={<Interest prop={posts}/>} />
           </Routes>
 
 

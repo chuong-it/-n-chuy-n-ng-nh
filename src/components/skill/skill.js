@@ -2,37 +2,31 @@
 import "./Skill.css";
 
 
-function Skill(props) {
- console.log(props.Skill);
+function Skill({prop}) {
+  const skill= prop[0].skill
+  // const skill1=prop.map((post)=>post.skill.reduce((post2)=>))
+  // console.log(skill1)
+ 
+ 
   return (
     
       <div className="App-skill">
 
         <h2><i className="fa fa-suitcase" aria-hidden="true"></i> Kỹ Năng </h2>
-        <p>HTML</p>
-        <div className="progress">
-          <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{ width: "70%" }}>
-            70%
+        {skill.map((post)=>(
+          <div key={post.id}>
+          <p>{post.name}</p>
+          <div className="progress">
+        
+    
+            <div className={`progress-bar ${post.type} progress-bar-striped active`} role="progressbar" aria-valuenow={post.value} aria-valuemin="0" aria-valuemax="100" style={{width: post.value}}>
+              {post.value}
+            </div>
           </div>
-        </div>
-        <p>CSS</p>
-        <div className="progress">
-          <div className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{ width: "70%" }}>
-            70%
           </div>
-        </div>
-        <p>JAVASCRET</p>
-        <div className="progress">
-          <div className="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{ width: "50%" }}>
-            50%
-          </div>
-        </div>
-        <p>REACT</p>
-        <div className="progress">
-          <div className="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{ width: "40%" }}>
-            40%
-          </div>
-        </div>
+        ))}
+       
+        
       </div>
   );
 }
